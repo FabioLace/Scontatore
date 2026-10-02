@@ -10,4 +10,5 @@
     <string name="discount_amount_label">Discount amount</string>
     <string name="increase_amount_label">Increase amount</string>
     <string name="discount_over_100_error">The discount cannot exceed 100%</string>
+    <string name="developer_logo_description">Developer logo</string>
 </resources>

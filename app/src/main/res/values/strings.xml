@@ -12,4 +12,5 @@
     <string name="discount_over_100_error">Lo sconto non può superare il 100%</string>
     <string name="missing_amount_placeholder" translatable="false">—</string>
     <string name="percentage_suffix" translatable="false">%</string>
+    <string name="developer_logo_description">Logo dello sviluppatore</string>
 </resources>
