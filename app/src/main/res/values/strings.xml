@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scontatore</string>
+    <string name="mode_discount">Sconto</string>
+    <string name="mode_increase">Aumento</string>
+    <string name="original_price_label">Prezzo originale</string>
+    <string name="percentage_label">Percentuale</string>
+    <string name="reset_button">Azzera</string>
+    <string name="final_price_label">Prezzo finale</string>
+    <string name="discount_amount_label">Importo dello sconto</string>
+    <string name="increase_amount_label">Importo dell\'aumento</string>
+    <string name="discount_over_100_error">Lo sconto non può superare il 100%</string>
+    <string name="missing_amount_placeholder" translatable="false">—</string>
+    <string name="percentage_suffix" translatable="false">%</string>
+</resources>

@@ -1,0 +1,31 @@
+package com.example.scontatore.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val RedPrimaryLight = Color(0xFFB91C1C)
+val RedOnPrimaryLight = Color(0xFFFFFFFF)
+val RedPrimaryContainerLight = Color(0xFFFFDAD6)
+val RedOnPrimaryContainerLight = Color(0xFF410002)
+val RedSecondaryLight = Color(0xFF775652)
+val RedSecondaryContainerLight = Color(0xFFFFDAD6)
+val RedOnSecondaryContainerLight = Color(0xFF2C1512)
+val RedTertiaryLight = Color(0xFF715B2E)
+val RedSurfaceLight = Color(0xFFFFF8F7)
+val RedOnSurfaceLight = Color(0xFF231918)
+val RedSurfaceVariantLight = Color(0xFFF5DDDA)
+val RedOnSurfaceVariantLight = Color(0xFF534341)
+val RedOutlineLight = Color(0xFF857371)
+
+val RedPrimaryDark = Color(0xFFFFB4AB)
+val RedOnPrimaryDark = Color(0xFF690005)
+val RedPrimaryContainerDark = Color(0xFF93000A)
+val RedOnPrimaryContainerDark = Color(0xFFFFDAD6)
+val RedSecondaryDark = Color(0xFFE7BDB8)
+val RedSecondaryContainerDark = Color(0xFF5D3F3C)
+val RedOnSecondaryContainerDark = Color(0xFFFFDAD6)
+val RedTertiaryDark = Color(0xFFDEC38C)
+val RedSurfaceDark = Color(0xFF1A1110)
+val RedOnSurfaceDark = Color(0xFFF1DEDC)
+val RedSurfaceVariantDark = Color(0xFF534341)
+val RedOnSurfaceVariantDark = Color(0xFFD8C2BF)
+val RedOutlineDark = Color(0xFFA08C8A)
