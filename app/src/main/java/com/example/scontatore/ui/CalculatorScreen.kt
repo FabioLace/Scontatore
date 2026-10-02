@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -18,9 +19,10 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
@@ -34,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -47,6 +50,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.scontatore.R
 import com.example.scontatore.domain.CalculationMode
 import com.example.scontatore.domain.CalculationResult
+import com.example.scontatore.ui.theme.OnSaleYellow
+import com.example.scontatore.ui.theme.SaleYellow
 import com.example.scontatore.ui.theme.ScontatoreTheme
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -126,7 +131,7 @@ private fun CalculatorContent(
                     calculationResult = uiState.calculationResult,
                     calculationMode = uiState.calculationMode,
                 )
-                FilledTonalButton(
+                OutlinedButton(
                     onClick = onReset,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -154,6 +159,22 @@ private fun CalculationModeSelector(
                     index = index,
                     count = CalculationMode.entries.size,
                 ),
+                colors = SegmentedButtonDefaults.colors(
+                    activeContainerColor = MaterialTheme.colorScheme.primary,
+                    activeContentColor = MaterialTheme.colorScheme.onPrimary,
+                ),
+                icon = {
+                    Icon(
+                        painter = painterResource(
+                            when (calculationMode) {
+                                CalculationMode.DISCOUNT -> R.drawable.ic_trending_down
+                                CalculationMode.INCREASE -> R.drawable.ic_trending_up
+                            },
+                        ),
+                        contentDescription = null,
+                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
+                    )
+                },
             ) {
                 Text(
                     text = stringResource(
@@ -255,6 +276,7 @@ private fun ResultCard(
             }
             Text(
                 text = formattedFinalPrice,
+                color = SaleYellow,
                 maxLines = 1,
                 autoSize = TextAutoSize.StepBased(minFontSize = 20.sp, maxFontSize = 57.sp),
                 style = MaterialTheme.typography.displayLarge.copy(
@@ -299,8 +321,8 @@ private fun DifferenceBadge(
     Surface(
         modifier = modifier,
         shape = CircleShape,
-        color = MaterialTheme.colorScheme.onPrimary,
-        contentColor = MaterialTheme.colorScheme.primary,
+        color = SaleYellow,
+        contentColor = OnSaleYellow,
     ) {
         Text(
             text = formattedDifference,
