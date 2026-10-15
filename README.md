@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="docs/logo.svg" alt="Scontatore Logo" width="100"/>
   <h1>Scontatore</h1>
   <p>
     <img src="https://img.shields.io/badge/Android-minSdk%2026-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
@@ -52,8 +53,8 @@ Gradle 8.14.3 viene scaricato automaticamente dal wrapper.
 ## Installazione
 
 ```bash
-git clone <url-del-repository>
-cd scontatore
+git clone https://github.com/FabioLace/Scontatore.git
+cd Scontatore
 ./gradlew assembleDebug
 ```
 
