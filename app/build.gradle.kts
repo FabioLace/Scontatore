@@ -1,4 +1,11 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+// Release signing credentials live outside git, in <root>/keystore.properties.
+val keystoreProperties = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
 
 plugins {
     alias(libs.plugins.android.application)
@@ -18,8 +25,20 @@ android {
         versionName = "1.0"
     }
 
+    signingConfigs {
+        if (keystoreProperties.isNotEmpty()) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
