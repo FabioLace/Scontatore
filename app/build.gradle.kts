@@ -62,6 +62,8 @@ android {
     }
 }
 
+base.archivesName = "Scontatore-${android.defaultConfig.versionName}"
+
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
