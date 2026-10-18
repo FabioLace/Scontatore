@@ -9,6 +9,9 @@
     <img src="https://img.shields.io/badge/Gradle-8.14-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle" />
     <img src="https://img.shields.io/badge/JUnit-5.13-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit" />
   </p>
+  <p>
+    <a href="https://github.com/FabioLace/Scontatore/releases/latest"><img src="https://img.shields.io/github/v/release/FabioLace/Scontatore?style=for-the-badge&label=Download" alt="Ultima release" /></a>
+  </p>
 </div>
 
 App Android nativa e minimale per calcolare sconti e aumenti percentuali in tempo reale, pensata per un uso rapido con una sola mano.
@@ -50,7 +53,18 @@ App Android nativa e minimale per calcolare sconti e aumenti percentuali in temp
 
 Gradle 8.14.3 viene scaricato automaticamente dal wrapper.
 
+## Download
+
+L'APK firmato è disponibile nella pagina [Releases](https://github.com/FabioLace/Scontatore/releases/latest):
+
+1. Scarica `Scontatore-<versione>-release.apk`
+2. Aprilo dal telefono e, se richiesto, consenti l'installazione da origini sconosciute
+
+Richiede Android 8.0 o superiore. Gli aggiornamenti si installano sopra la versione precedente, senza perdere nulla.
+
 ## Installazione
+
+Per compilare il progetto dai sorgenti:
 
 ```bash
 git clone https://github.com/FabioLace/Scontatore.git
@@ -68,11 +82,20 @@ Per installare direttamente la build di debug su un dispositivo collegato:
 
 ## Configurazione
 
-Non sono richieste chiavi API né variabili d'ambiente. Il file `local.properties` (escluso da git) viene generato da Android Studio con il percorso dell'SDK; se compili da riga di comando senza Android Studio, crealo con:
+Non sono richieste chiavi API né variabili d'ambiente. Il progetto usa due file locali, entrambi esclusi da git:
+
+| File | Obbligatorio | Scopo |
+|---|---|---|
+| `local.properties` | Sì | Percorso dell'Android SDK |
+| `keystore.properties` | No | Credenziali per firmare la build di release (vedi [Firma](#firma)) |
+
+`local.properties` viene generato da Android Studio; se compili da riga di comando senza Android Studio, crealo con:
 
 ```properties
 sdk.dir=/percorso/al/tuo/Android/sdk
 ```
+
+Senza `keystore.properties` tutte le build funzionano comunque: la build di debug usa il keystore di debug di Android, mentre quella di release viene generata non firmata.
 
 ## Comandi disponibili
 
@@ -80,7 +103,7 @@ sdk.dir=/percorso/al/tuo/Android/sdk
 |---|---|
 | `./gradlew assembleDebug` | Genera l'APK di debug |
 | `./gradlew installDebug` | Installa l'APK di debug sul dispositivo collegato |
-| `./gradlew assembleRelease` | Genera l'APK di release (minificato con R8) |
+| `./gradlew assembleRelease` | Genera l'APK di release (minificato con R8, firmato se è presente `keystore.properties`) |
 | `./gradlew bundleRelease` | Genera l'Android App Bundle (AAB) di release |
 | `./gradlew test` | Esegue gli unit test |
 | `./gradlew lint` | Esegue l'analisi statica Android Lint |
@@ -132,4 +155,32 @@ La build di release ha `isMinifyEnabled` e `isShrinkResources` attivi (R8 + rego
 ./gradlew assembleRelease   # APK
 ```
 
-Il progetto non include una configurazione di firma: per pubblicare l'app è necessario aggiungere un `signingConfig` in `app/build.gradle.kts` oppure firmare il pacchetto da Android Studio con **Build › Generate Signed App Bundle / APK**.
+Gli APK vengono generati con nome versionato, ad esempio `app/build/outputs/apk/release/Scontatore-1.0-release.apk`.
+
+### Firma
+
+La build di release viene firmata automaticamente se nella root del progetto è presente il file `keystore.properties` (escluso da git):
+
+```properties
+storeFile=/percorso/al/tuo/keystore.jks
+storePassword=PASSWORD_DEL_KEYSTORE
+keyAlias=scontatore
+keyPassword=PASSWORD_DELLA_CHIAVE
+```
+
+Se il file manca, la build di release viene comunque generata ma non firmata (`Scontatore-1.0-release-unsigned.apk`).
+
+Per creare un nuovo keystore:
+
+```bash
+keytool -genkeypair -v -keystore ~/scontatore-release.jks -alias scontatore \
+  -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=TuoNome, C=IT"
+```
+
+Per verificare la firma di un APK:
+
+```bash
+apksigner verify --print-certs app/build/outputs/apk/release/Scontatore-1.0-release.apk
+```
+
+> **Importante:** conserva un backup del keystore e delle password. Android accetta un aggiornamento solo se è firmato con la stessa chiave della versione installata: perdere il keystore significa non poter più rilasciare aggiornamenti dell'app.
