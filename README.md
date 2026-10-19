@@ -164,7 +164,7 @@ La build di release viene firmata automaticamente se nella root del progetto è 
 ```properties
 storeFile=/percorso/al/tuo/keystore.jks
 storePassword=PASSWORD_DEL_KEYSTORE
-keyAlias=scontatore
+keyAlias=fabiolace
 keyPassword=PASSWORD_DELLA_CHIAVE
 ```
 
@@ -173,7 +173,7 @@ Se il file manca, la build di release viene comunque generata ma non firmata (`S
 Per creare un nuovo keystore:
 
 ```bash
-keytool -genkeypair -v -keystore ~/scontatore-release.jks -alias scontatore \
+keytool -genkeypair -v -keystore ~/fabiolace-release.jks -alias fabiolace \
   -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=TuoNome, C=IT"
 ```
 
